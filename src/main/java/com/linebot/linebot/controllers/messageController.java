@@ -1,4 +1,5 @@
-package controllers;
+package com.linebot.linebot.controllers;
+
 
 
 import com.linecorp.bot.messaging.client.MessagingApiClient;
@@ -11,16 +12,21 @@ import com.linecorp.bot.webhook.model.MessageEvent;
 import com.linecorp.bot.webhook.model.TextMessageContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.linebot.linebot.service.MessageService;
+
 import java.util.List;
 
 
 @LineMessageHandler
 public class messageController {
-
     private final Logger log = LoggerFactory.getLogger(messageController.class);
+    private final MessageService messageService;
     private final MessagingApiClient messagingApiClient;
 
-    public messageController(MessagingApiClient messagingApiClient) {
+    @Autowired
+    public messageController(MessageService messageService, MessagingApiClient messagingApiClient) {
+        this.messageService = messageService;
         this.messagingApiClient = messagingApiClient;
     }
 
@@ -29,7 +35,7 @@ public class messageController {
         log.info("event: " + event);
         if (event.message() instanceof TextMessageContent) {
             TextMessageContent message = (TextMessageContent) event.message();
-            final String originalMessageText = " How may i Help you? " +message.text();
+            final String originalMessageText = messageService.createReplyMessage(message.text());
             messagingApiClient.replyMessage(new ReplyMessageRequest(
                     event.replyToken(),
                     List.of(new TextMessage(originalMessageText)),
