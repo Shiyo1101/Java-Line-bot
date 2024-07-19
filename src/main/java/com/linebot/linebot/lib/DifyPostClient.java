@@ -6,6 +6,7 @@ import lombok.Getter;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
 import java.io.IOException;
 
@@ -21,7 +22,9 @@ public class DifyPostClient {
 
     final String userId;
 
-    public DifyPostClient(String userId) throws IOException {
+    public DifyPostClient(String userId) {
+        Environment env = null;
+        this.DIFY_API_KEY = env.getProperty("dify.api.key");
         this.userId = userId;
     }
 
@@ -31,7 +34,7 @@ public class DifyPostClient {
         JsonNode res = doPost(message);
 
         String resMessage = res.get("answer").asText();
-        if (conversation_id.equals("")) conversation_id = res.get("conversation_id").asText();
+        if (conversation_id.isEmpty()) conversation_id = res.get("conversation_id").asText();
 
         return resMessage;
     }
