@@ -6,15 +6,15 @@ import lombok.Getter;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
 import java.io.IOException;
 
 @PropertySource("classpath:application.properties")
 public class DifyPostClient {
+
     private static final String WEB_API_ENDPOINT = "https://api.dify.ai/v1/chat-messages";
 
-    @Value("${dify.api.key}")
+    @Value("${DIFY_API_KEY}")
     private String DIFY_API_KEY;
 
     @Getter
@@ -23,8 +23,6 @@ public class DifyPostClient {
     final String userId;
 
     public DifyPostClient(String userId) {
-        Environment env = null;
-        this.DIFY_API_KEY = env.getProperty("dify.api.key");
         this.userId = userId;
     }
 
