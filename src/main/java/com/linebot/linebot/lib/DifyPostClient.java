@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 
 import java.io.IOException;
 
+@PropertySource("classpath:application.properties")
 public class DifyPostClient {
     private static final String WEB_API_ENDPOINT = "https://api.dify.ai/v1/chat-messages";
 
