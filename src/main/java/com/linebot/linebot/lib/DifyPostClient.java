@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class DifyPostClient {
     private static final String WEB_API_ENDPOINT = "https://api.dify.ai/v1/chat-messages";
-    private static final String DIFY_API_KEY = "app-ZV7cgCvLtnyMhNVzmPHLLXQ5";
+    private static final String DIFY_API_KEY = System.getenv("DIFY_API_KEY");
     @Getter
     private String conversation_id = "";
 
