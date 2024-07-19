@@ -24,6 +24,8 @@ public class DifyPostClient {
     }
 
     public String callDifyAPI(String message) {
+        System.out.println("doPost");
+        System.out.println(DIFY_API_KEY);
         JsonNode res = doPost(message);
 
         String resMessage = res.get("answer").asText();
