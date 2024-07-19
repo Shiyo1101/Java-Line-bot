@@ -32,16 +32,15 @@ public class DifyPostClient {
         OkHttpClient client = new OkHttpClient();
 
         // JSONデータを作成
-        String jsonData =
-                """
+        String jsonData = String.format("""
                 {
                     "inputs": {},
-                    "query": "こんにちは",
+                    "query": "%s",
                     "response_mode": "blocking",
                     "conversation_id": "",
                     "user": "uchii"
                 }
-                """;
+                """, message);
 
         // リクエストボディを作成
         RequestBody body = RequestBody.create(jsonData, MediaType.get("application/json; charset=utf-8"));

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.linebot.linebot.service.MessageService;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -31,7 +32,7 @@ public class messageController {
     }
 
     @EventMapping
-    public void handleTextMessageEvent(MessageEvent event) {
+    public void handleTextMessageEvent(MessageEvent event) throws IOException {
         log.info("event: " + event);
         if (event.message() instanceof TextMessageContent) {
             TextMessageContent message = (TextMessageContent) event.message();
