@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 
 import java.io.IOException;
@@ -13,9 +12,7 @@ import java.io.IOException;
 public class DifyPostClient {
 
     private static final String WEB_API_ENDPOINT = "https://api.dify.ai/v1/chat-messages";
-
-    @Value("${DIFY_API_KEY}")
-    private String DIFY_API_KEY;
+    private final String DIFY_API_KEY = "app-ZV7cgCvLtnyMhNVzmPHLLXQ5";
 
     @Getter
     private String conversation_id = "";
@@ -27,8 +24,6 @@ public class DifyPostClient {
     }
 
     public String callDifyAPI(String message) {
-        System.out.println("doPost");
-        System.out.println(DIFY_API_KEY);
         JsonNode res = doPost(message);
 
         String resMessage = res.get("answer").asText();
